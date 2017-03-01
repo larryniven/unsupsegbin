@@ -3,22 +3,9 @@
 #include <fstream>
 #include <algorithm>
 #include "speech/speech.h"
-#include "seg/dtw.h"
+#include "unsupseg/dtw.h"
 
 using seg_t = std::vector<std::vector<double>>;
-
-la::vector<double> embed(seg_t const& seg, std::vector<seg_t> const& basis)
-{
-    la::vector<double> result;
-
-    result.resize(basis.size());
-
-    for (int i = 0; i < basis.size(); ++i) {
-        result(i) = dtw::dtw(seg, basis.at(i));
-    }
-
-    return result;
-}
 
 int main(int argc, char *argv[])
 {
@@ -63,7 +50,7 @@ int main(int argc, char *argv[])
     seg_t target = speech::load_frame_batch(target_ifs);
     target_ifs.close();
 
-    la::vector<double> target_embed = embed(target, basis);
+    la::vector<double> target_embed = dtw::embed(target, basis);
     la::imul(target_embed, 1.0 / la::norm(target_embed));
 
     std::ifstream frame_batch { args.at("frame-batch") };
@@ -75,7 +62,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        la::vector<double> seg_embed = embed(seg, basis);
+        la::vector<double> seg_embed = dtw::embed(seg, basis);
         la::imul(seg_embed, 1.0 / la::norm(seg_embed));
 
         std::cout << "dist: " << la::dot(seg_embed, target_embed) << std::endl;

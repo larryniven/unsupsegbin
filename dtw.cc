@@ -3,7 +3,7 @@
 #include <fstream>
 #include <algorithm>
 #include "speech/speech.h"
-#include "seg/dtw.h"
+#include "unsupseg/dtw.h"
 
 int main(int argc, char *argv[])
 {

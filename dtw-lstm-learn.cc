@@ -2,7 +2,7 @@
 #include "nn/tensor-tree.h"
 #include "speech/speech.h"
 #include "nn/lstm-frame.h"
-#include "seg/dtw.h"
+#include "unsupseg/dtw.h"
 #include "nn/lstm-tensor-tree.h"
 #include <random>
 #include <algorithm>

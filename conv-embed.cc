@@ -3,7 +3,6 @@
 #include <fstream>
 #include <algorithm>
 #include "speech/speech.h"
-#include "seg/dtw.h"
 
 using seg_t = std::vector<std::vector<double>>;
 

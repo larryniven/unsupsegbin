@@ -1,4 +1,4 @@
-CXXFLAGS += -std=c++11 -I .. -L ../speech -L ../nn -L ../autodiff -L ../opt -L ../la -L ../ebt -L ../seg -L ../fst
+CXXFLAGS += -std=c++11 -I .. -L ../speech -L ../nn -L ../autodiff -L ../opt -L ../la -L ../ebt -L ../fst -L ../unsupseg
 
 bin = \
     random-seg \
@@ -19,22 +19,22 @@ clean:
 	-rm $(bin)
 
 random-seg: random-seg.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lseg -lspeech -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lspeech -lla -lebt -lblas
 
 conv-embed: conv-embed.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lseg -lspeech -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lspeech -lla -lebt -lblas
 
 dtw: dtw.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lseg -lspeech -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lunsupseg -lspeech -lla -lebt -lblas
 
 dtw-embed: dtw-embed.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lseg -lspeech -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lunsupseg -lspeech -lla -lebt -lblas
 
 dtw-lstm-learn: dtw-lstm-learn.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lnn -lseg -lautodiff -lspeech -lopt -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lunsupseg -lnn -lautodiff -lspeech -lopt -lla -lebt -lblas
 
 dtw-lstm-predict: dtw-lstm-predict.o
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lnn -lseg -lautodiff -lspeech -lopt -lla -lebt -lblas
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lunsupseg -lnn -lautodiff -lspeech -lopt -lla -lebt -lblas
 
 rsg-unsup-learn: rsg-unsup-learn.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ -lnn -lautodiff -lspeech -lopt -lla -lebt -lblas
